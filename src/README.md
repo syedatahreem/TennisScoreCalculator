@@ -1,106 +1,38 @@
-# Tennis Calculator
+ ## Tennis Calculator
 
-The tennis calculator takes a set of scores as inputs and produces useful statistics based on those scores.
-
-This calculator will used a simplified version of scoring where whoever gets to 6 games first wins the set
-
-## Overview
-
-The Tennis Calculator takes inputs in the form of a list of points of a tennis match. 
-
-Given this list of points, it will calculate the "games", "sets" and "matches" results.
-
-From there it can be queried about various statistics around the input matches it received. 
-
-## Input
-
-The input will have some header lines, and then a list of points. 
-For example:, the following would result in 2 games to "Person A":
-
-    Match: 01
-    Person A vs Person B
-    0
-    1
-    0
-    1
-    0
-    0
-    0
-    0
-    0
-    0
-
-    
-The first row is a match id, the second row shows who is playing against whom.
-After that are a series of points, where 0 is a point for the first person listed, 1 is for last person.
-
-i.e.
-
-| Input                | Score   |
-|----------------------|---------|
-| Match: 01            |         |
-| Person A vs Person B |         |
-| 0                    | 15 - 0  |
-| 1                    | 15 - 15 |
-| 0                    | 30 - 15 |
-| 1                    | 30 - 30 |
-| 0                    | 40 - 30 |
-| 0                    | Game    |
-| 0                    | 15 - 0  |
-| 0                    | 30 - 0  |
-| 0                    | 40 - 0  |
-| 0                    | Game    |
-
-
-For processing, blank lines must be ignored
-
-## Queries
-
-### Query match result
-Query scores for a particular match
-Prints who defeated whom, and the result of the sets for the match (winning player score first).
-
-Query: `Score Match <id>`
-
-Example: `Score Match 01`
-
-Example output:
-
-    Person A defeated Person B
-    2 sets to 0
+----------------------------------------------
+#### Table of contents:
+1. Introduction
+2. Tech Stack
+3. Assumptions
+4. Getting Started - Installation and running instructions
+5. GitHub Repository
+6. Sample Output
  
-### Query games for player
-Prints a summary of games won vs lost for a particular player over the tournament
-Query: `Games Player <Player Name>`
 
-Example: `Games Player Person A`
+---------------------------------------------------------------------------------------------------
 
-Example output:
+#### 1.Introduction:
+ 
+The tennis calculator takes an input text file which contains the raw data containing points of all the matches played by the players.
+This application computes scores of the games, sets, matches and finally declares the winner.
+The application offers functionalities such as,
+1. The score of a particular match 
+2. games played vs lost by a particular player
+3. Summary of the tournament results
+4. Option to exit the program
 
-    23 17
+ 
+-----------------------------------------------------------------------------------------------------
 
-## Sample output
-Running the application against the 'full_tournament.txt' file results in the following:
+#### 2.Stack:
+* Node JS
+* JavaScript
 
-    $ python tennis_calculator_app.py test/test_data/full_tournament.txt << EOF
-    Score Match 02
-    Games Player Person A
-    EOF
-    
-    Person C defeated Person A
-    2 sets to 1
-    
-    23 17
-    
+--------------------------------------------------------------------------------------------------------
 
+#### 3.Assumptions:
 
-## Scoring Rules
-Details of tennis scoring can be found online. See here for reference:  
-https://en.wikipedia.org/wiki/Tennis_scoring_system
-
-The variation used for this application is a best of 3 sets match, with first to 6 games wins a set. 
-
-Details as follows:
 * A tennis match is split up into points, games and sets.
 * Winning a game requires a person to win 4 points, but they must be ahead by at least 2 points (deuce, advantage, game)
 * The first player to win 6 games wins a set. I.e:
@@ -108,3 +40,90 @@ Details as follows:
     * There is nothing special about that final game in a set. All games are the same.
 * Best of 3 sets (first to 2 sets wins).
 
+-------------------------------------------------------------------------------------------------------
+
+#### 4. Getting Started-Installation and running instructions: Running on local computer
+* Step 1: Download Node js
+* Step 2: Download Visual Studio Code
+* Step 3: Import the zipped code file into the visual studio code
+* Step 4: Open the terminal and navigate to the estimateone_test by typing cd estimateone_test
+* Step 5: Now type node src/app.js ./././src/data/full_tournament.txt or any input text file of your choice 
+* Step 6: A menu will be displayed for the following four options 
+   1.  Query match result
+   2.  Query games for player
+   3.  Tournament result
+   4.  Quit
+* Select any of the above to get the desired output
+  
+
+------------------------------------------------------------------------------------------------------
+
+#### 5.GitHub URL
+GitHub-Url : https://github.com/syedatahreem/TennisScoreCalculator.git
+
+------------------------------------------------------------------------------------------------------
+
+#### 6.Sample Output
+ 
+PS D:\estimateone_test> node src/app.js ./././src/data/full_tournament.txt
+
+** Welcome to the tennis tournament **
+
+Please enter one of the options :
+
+    1) Query match result
+    2) Query games for player
+    3) Tournament result
+    4) Quit
+
+
+ * Option 1
+All matches played:
+1. Match 1
+2. Match 2
+
+Select one of the options...
+1
+Match 1 Score : Person A vs Person B
+Person A defeated Person B : 2 sets to 0  (12 games to 0)
+
+Please enter one of the options :
+
+    1) Query match result
+    2) Query games for player
+    3) Tournament result
+    4) Quit
+
+
+ * Option 2
+1. Person A
+
+2. Person B
+
+3. Person C
+
+Select one of the options...
+1
+
+Person A : Games Won = 23 & Games Lost = 17
+
+Please enter one of the options :
+
+    1) Query match result
+    2) Query games for player
+    3) Tournament result
+    4) Quit
+
+
+
+* Option 3
+
+Tournament results:
+
+Match 1 Score : Person A vs Person B
+Person A defeated Person B : 2 sets to 0  (12 games to 0)
+
+Match 2 Score : Person A vs Person C
+Person C defeated Person A : 2 sets to 1  (17 games to 11)
+
+ 

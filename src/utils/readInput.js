@@ -3,51 +3,107 @@ const fs = require('fs');
  const readInput = (fileName) =>{
 
    return new Promise( function(resolve, reject){
-   fs.readFile(fileName, (err, data) =>{
     
-    let matchArray=[], personArray =[], inputArray =[], 
-        possibleValues=[], listOfPoints, finalArrayElements =[];
+
+     // Checking if the file path is right
+      if (!fs.existsSync(fileName))     
+      throw new Error("No file exists:" +
+       "Please check the file path")
+        
+
+  /*Reading the file contents 
+  using file system, fs */ 
+   fs.readFile(fileName, (err, data) =>{   
     
-    if(err) 
-    { reject("error")}
+
+    // array and variable declarations
+    let matchArray=[], personArray =[], 
+        inputArray =[],pointerValues=[], 
+        listOfPoints, finalArrayElements =[];
+    
+
+    if(err)
+    reject("error")
        
       let arrayLength = data.toString().split("Match").length;
        
+
       for ( let j = 1; j < arrayLength; j++)
       {
-           
-       inputArray =  data.toString().split("Match");
-       matchArray = inputArray[j].split("\n")[0]
+
+
+      /* Splitting the data on Match, 
+      and storing it in inputArray*/
+       inputArray =  data.toString().split("Match"); 
+
+       // stores the match number
+       matchArray = inputArray[j].split("\n")[0] 
+
+       // stores the players name 
        personArray = inputArray[j].split("\n")[1]
-       listOfPoints = inputArray[j].split("\n")
+
+       // store the points of a match
+       listOfPoints = inputArray[j].split("\n")   
+
+
       for (let i = 2; i< listOfPoints.length-1; i++)
       {  
-         let pointerList = parseInt(listOfPoints[i]);
-        if(pointerList ==0 || pointerList ==1)
+
+        // parsing the data into integer
+        let pointerList = parseInt(listOfPoints[i]);  
+
+
+        // ommiting blank lines in the file
+        if(pointerList ==0 || pointerList ==1)    
         {
-        possibleValues.push(pointerList);
+
+
+        // storing the points values in an array
+        pointerValues.push(pointerList);   
+
         }
         
       }
-     finalArrayElements.push ({
+      
+      /*Adding all the match in a javascript object format */
+     finalArrayElements.push  
+     (
+       {
 
         matchNumber : parseInt(matchArray.split(":") [1]),
         player1 : (personArray.split("vs")[0]).trim(),
         player2 : (personArray.split("vs")[1]).trim(),
-        listOfPoints: [...possibleValues]
 
-     })
-    
-     possibleValues =[]
+        // use of spread operator so that the original array is not mutated
+        listOfPoints: [...pointerValues]   
+
+
+      }
+     )
+
+
+    /* empty this array before the next iteration
+     so that this loop's values aren't carried 
+     to the next iteration, to avoid appending old values */
+     pointerValues =[] 
+
       
     }
-     
-    resolve(finalArrayElements)
-});
-        });
+
+
+    // promise is resolved and the array elements are returned
+    resolve(finalArrayElements) 
+
+}
+);
+       
+        }
+        );
+
 }
 
 
+//readInput is exported
 module.exports = {
     readInput
 };

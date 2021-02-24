@@ -1,28 +1,32 @@
 const  playMatch = require ('./utils/playMatch');
 const  {readInput} =  require ('./utils/readInput');
+const menu = require('./utils/menu');
 
 const tournamentResults = [];
-let fs = require('fs')
-   , fileName = process.argv[2];
 
-if (process.argv.length < 3) {
- //  console.log('Usage: node ' + process.argv[1] + ' FILENAME');
-   process.exit(1);
- }
+// File name as input to be taken from the user
+let fileName = process.argv[2]; 
 
-  
-const tournamentInput = readInput(fileName);
+/* calling readInput by passing 
+   the file Name returns an array
+   containing match details*/
+const tournamentInput = readInput(fileName); 
 
-tournamentInput.then((inputList) => {
+tournamentInput.then((inputList) => {  
 
    inputList.forEach(match => {
 
-      tournamentResults.push(playMatch(match.player1, match.player2, match.listOfPoints))
+      /*calling the playMatch method by 
+        passing player1, player 2 
+       with points of these two 
+       players for a particular match*/
+      tournamentResults.push(playMatch(match.player1, match.player2, match.listOfPoints))  
       
-       
    });
-   console.log(tournamentResults)
-}).catch((err) => console.log(err))
+   menu(tournamentResults);
+   
+   // catch any errors when occured
+}).catch((err) => console.log(err)) 
 
  
 
